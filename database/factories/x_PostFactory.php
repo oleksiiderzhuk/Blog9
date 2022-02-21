@@ -3,7 +3,8 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
+use Faker\Generator as Faker;
+use Stringable;
 
 class PostFactory extends Factory
 {
@@ -14,21 +15,18 @@ class PostFactory extends Factory
      */
     public function definition()
     {
-
-        $title = $this->faker->realText(rand(10, 40));
+        $faker = new Faker;
+        $title = $faker->realText(rand(10, 40));
         $short_title = mb_strlen($title)>30 ? mb_substr($title, 0, 30) . '...' : $title;
-        $created = $this->faker->dateTimeBetween('-30 days', '-1 days');
-
+        $created = $faker->fateTimeBetween('-30 days', '-1 days');
 
         return [
             'title' => $title,
             'short_title' => $short_title,
             'author_id' => rand(1, 4),
-            'descr' => $this->faker->realText(rand(100, 500)),
+            'descr' => $faker->realText(rand(100, 500)),
             'created_at' => $created,
             'updated_at' => $created,
         ];
     }
-
-
 }
